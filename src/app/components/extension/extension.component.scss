@@ -1,0 +1,31 @@
+.form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.buttons {
+   // text-align: center;
+}
+
+.example-button-row button {
+    margin-right: 8px;
+}
+
+button {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.camera {
+
+    i {
+        cursor: pointer;
+        background-color: transparent;
+        margin-top: 10px;
+    }
+}

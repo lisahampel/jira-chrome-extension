@@ -1,0 +1,27 @@
+{
+    "name": "Jira Extension",
+    "version": "0.1",
+    "description": "Build an Jira Extension with Screenshot function",
+    "background": {
+        "scripts": [
+            "background-es2015.js",
+            "runtime-es2015.js"
+        ],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_icon": "assets/zebra48.png",
+        "default_title": "Jira screenshot!",
+        "default_popup": "index.html"
+    },
+    "permissions": [
+        "identity",
+        "identity.email",
+        "sessions",
+        "windows",
+        "tabs",
+        "activeTab"
+    ],
+    "manifest_version": 2,
+    "key": "ankihcfhepdnggilcleihflfnjbiiglb"
+}

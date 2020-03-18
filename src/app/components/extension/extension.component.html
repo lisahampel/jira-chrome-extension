@@ -1,0 +1,24 @@
+<link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.snow.css">
+<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<div class="chrome-extension">
+    <h2 class="extension-header">Report a Bug:</h2>
+    <form class="form">
+        <mat-form-field class="extension-field full-width">
+            <input class="problem" matInput placeholder="Title for the problem?">
+        </mat-form-field>
+        <div id="editor">
+            <quill-editor placeholder="Enter a short description of your problem" formControlName="yourCtrlname"
+                          required>
+            </quill-editor>
+        </div>
+    </form>
+    <div class="camera">
+        <i (click)="takeScreenshot()" class="material-icons">photo_camera</i>
+    </div>
+    <div class="buttons">
+        <button mat-raised-button>Cancel</button>
+        <button mat-raised-button color="primary" (click)="sendBug()">Send Bug</button>
+    </div>
+</div>
+
