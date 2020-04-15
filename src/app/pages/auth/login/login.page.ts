@@ -53,6 +53,6 @@ export class LoginPage implements OnInit {
             url: await this.getAtlassianAuthUrl(),
             interactive: true
         }, () => console.log('auth successful', arguments));
-    }
 
+    }
 }
