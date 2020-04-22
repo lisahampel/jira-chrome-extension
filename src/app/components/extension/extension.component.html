@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.snow.css">
-<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+<!--<link rel="stylesheet" href="//cdn.quilljs.com/1.3.6/quill.snow.css">
+<script src="//cdn.quilljs.com/1.3.6/quill.js"></script>-->
 
 <div class="chrome-extension">
     <h2 class="extension-header">Report a Bug:</h2>
@@ -7,11 +7,12 @@
         <mat-form-field class="extension-field full-width">
             <input class="problem" matInput placeholder="Title for the problem?">
         </mat-form-field>
-        <div id="editor">
+        <angular-editor [placeholder]="'Enter text here...'" ></angular-editor> <!-- [(ngModel)]="htmlContent"-->
+     <!--   <div id="editor">
             <quill-editor placeholder="Enter a short description of your problem" formControlName="yourCtrlname"
                           required>
             </quill-editor>
-        </div>
+        </div>-->
     </form>
     <div class="camera">
         <i (click)="takeScreenshot()" class="material-icons">photo_camera</i>

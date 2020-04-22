@@ -10,6 +10,7 @@ import {QuillModule} from 'ngx-quill';
 import {CommonModule} from '@angular/common';
 import {AuthModule} from './pages/auth/auth.module';
 import {RouterModule} from '@angular/router';
+import {AngularEditorModule} from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {RouterModule} from '@angular/router';
         MatInputModule,
         MatButtonModule,
         CommonModule,
-        QuillModule.forRoot({
+        AngularEditorModule,
+     /*   QuillModule.forRoot({
             modules: {
                 syntax: false,
                 toolbar: [
@@ -50,7 +52,7 @@ import {RouterModule} from '@angular/router';
                     ['link', 'image', 'video']                         // link and image, video
                 ]
             }
-        }),
+        }),*/
         AuthModule
     ],
     providers: [],
