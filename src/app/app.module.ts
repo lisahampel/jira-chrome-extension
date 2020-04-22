@@ -11,6 +11,9 @@ import {CommonModule} from '@angular/common';
 import {AuthModule} from './pages/auth/auth.module';
 import {RouterModule} from '@angular/router';
 import {AngularEditorModule} from '@kolkov/angular-editor';
+import {NgxsModule} from '@ngxs/store';
+import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 
 
 @NgModule({
@@ -53,7 +56,12 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
                 ]
             }
         }),*/
-        AuthModule
+        AuthModule,
+        NgxsModule.forRoot([], {
+            developmentMode: true
+        }),
+        NgxsReduxDevtoolsPluginModule.forRoot(),
+        NgxsLoggerPluginModule.forRoot()
     ],
     providers: [],
     bootstrap: [AppComponent]
