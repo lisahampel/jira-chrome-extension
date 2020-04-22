@@ -1,5 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {environment} from '../../../../environments/environment';
+import {Router} from '@angular/router';
+import LoggedIn = AppActions.LoggedIn;
+import {Store} from '@ngxs/store';
+import {AppActions} from '../../../actions/app.actions';
 
 @Component({
     selector: 'app-login',
@@ -10,7 +14,7 @@ export class LoginPage implements OnInit {
 
     static ATLASSIAN_AUTH_URL = 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=QLT8Ng5om30Gb6UBPTdL3sdxSDK5gWrx&scope=read%3Aservicedesk-request%20write%3Aservicedesk-request&redirect_uri=https%3A%2F%2Fnmeoeehnncogeoalaabeoildfopkhgll.chromiumapp.org%2Fcallback&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent';
 
-    constructor() {
+    constructor(private _router: Router, private _zone: NgZone, private _store: Store) {
     }
 
     get atlassianAuthUrlOld() {
@@ -45,6 +49,7 @@ export class LoginPage implements OnInit {
     async getAtlassianAuthUrl(): Promise<string> {
         const userInfo = await this.getProfileUserInfo();
         console.log('userInfo', userInfo);
+        this._store.dispatch(new AppActions.GetUserInformation());
         return `https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=QLT8Ng5om30Gb6UBPTdL3sdxSDK5gWrx&scope=read%3Aservicedesk-request%20write%3Aservicedesk-request&redirect_uri=https%3A%2F%2Fnmeoeehnncogeoalaabeoildfopkhgll.chromiumapp.org%2Fcallback&state=${userInfo.id}&response_type=code&prompt=consent`;
     }
 
@@ -52,7 +57,13 @@ export class LoginPage implements OnInit {
         chrome.identity.launchWebAuthFlow({
             url: await this.getAtlassianAuthUrl(),
             interactive: true
-        }, () => console.log('auth successful', arguments));
-
+        }, () => {
+            this._zone.run(() => {
+                console.log('authNavigate');
+                this._router.navigate(['/content']);
+            });
+            console.log('auth successful', arguments);
+        });
+        this._store.dispatch(new AppActions.LoggedIn());
     }
 }
