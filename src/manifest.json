@@ -1,6 +1,6 @@
 {
-    "name": "Jira Extension",
-    "version": "0.1",
+    "name": "Jira Chrome Extension",
+    "version": "0.01",
     "description": "Build an Jira Extension with Screenshot function",
     "background": {
         "scripts": [
