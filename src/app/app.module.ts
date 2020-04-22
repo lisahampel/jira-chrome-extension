@@ -14,6 +14,7 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
 import {NgxsModule} from '@ngxs/store';
 import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {AppState} from './app.state';
 
 
 @NgModule({
@@ -57,7 +58,7 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
             }
         }),*/
         AuthModule,
-        NgxsModule.forRoot([], {
+        NgxsModule.forRoot([AppState], {
             developmentMode: true
         }),
         NgxsReduxDevtoolsPluginModule.forRoot(),
