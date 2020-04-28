@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
     async login() {
         await this._loginFacade.login();
         this._zone.run(() => {
-            console.log('authNavigate');
+            console.log('loginPage: authNavigate');
             this._router.navigate(['/content']);
         });
         console.log('auth successful', arguments);

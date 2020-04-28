@@ -22,6 +22,11 @@
         "tabs",
         "activeTab"
     ],
+    "web_accessible_resources": [
+        "assets/css/*",
+        "assets/js/*",
+        "assets/fonts/*"
+    ],
     "manifest_version": 2,
     "key": "ankihcfhepdnggilcleihflfnjbiiglb"
 }
