@@ -15,6 +15,7 @@ import {NgxsModule} from '@ngxs/store';
 import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {AppState} from './app.state';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import {AppState} from './app.state';
         MatButtonModule,
         CommonModule,
         AngularEditorModule,
+        HttpClientModule,
      /*   QuillModule.forRoot({
             modules: {
                 syntax: false,

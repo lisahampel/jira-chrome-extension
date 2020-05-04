@@ -1,7 +1,8 @@
-import {Action, State, StateContext} from '@ngxs/store';
-import {Injectable} from '@angular/core';
+import {Action, Selector, State, StateContext} from '@ngxs/store';
+import {Injectable, NgZone} from '@angular/core';
 import {AppActions} from './actions/app.actions';
 import {AuthService} from './services/auth.service';
+import {Router} from '@angular/router';
 
 // tslint:disable-next-line:no-empty-interface
 interface IAppStateModel {
@@ -16,7 +17,16 @@ interface IAppStateModel {
 })
 @Injectable()
 export class AppState {
-    constructor(private _authService: AuthService) {
+    @Selector()
+    static activeUser(state: IAppStateModel) {
+        return state.user;
+    }
+    @Selector([AppState.activeUser])
+    static isLoggedIn(state: IAppStateModel, activeUser: any) {
+        return activeUser != null;
+    }
+
+    constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _zone: NgZone) {
     }
 
     @Action(AppActions.Login)
@@ -28,6 +38,10 @@ export class AppState {
     @Action(AppActions.LoggedIn)
     async loggedIn(context: StateContext<IAppStateModel>, action: AppActions.LoggedIn) {
         context.patchState({user: action.user});
+        this._zone.run(() => {
+            console.log('loginPage: authNavigate');
+            this._router.navigate(['/content']);
+        });
     }
 
 }
