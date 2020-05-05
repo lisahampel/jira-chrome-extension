@@ -14,7 +14,7 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
 import {NgxsModule} from '@ngxs/store';
 import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
-import {AppState} from './app.state';
+import {AuthState} from './auth.state';
 import {HttpClientModule} from '@angular/common/http';
 
 
@@ -60,7 +60,7 @@ import {HttpClientModule} from '@angular/common/http';
             }
         }),*/
         AuthModule,
-        NgxsModule.forRoot([AppState], {
+        NgxsModule.forRoot([AuthState], {
             developmentMode: true
         }),
         NgxsReduxDevtoolsPluginModule.forRoot(),

@@ -16,12 +16,12 @@ interface IAppStateModel {
     }
 })
 @Injectable()
-export class AppState {
+export class AuthState {
     @Selector()
     static activeUser(state: IAppStateModel) {
         return state.user;
     }
-    @Selector([AppState.activeUser])
+    @Selector([AuthState.activeUser])
     static isLoggedIn(state: IAppStateModel, activeUser: any) {
         return activeUser != null;
     }
