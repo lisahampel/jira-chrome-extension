@@ -1,6 +1,6 @@
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable, NgZone} from '@angular/core';
-import {AppActions} from './actions/app.actions';
+import {AuthActions} from './actions/auth.actions';
 import {AuthService} from './services/auth.service';
 import {Router} from '@angular/router';
 
@@ -29,19 +29,25 @@ export class AppState {
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _zone: NgZone) {
     }
 
-    @Action(AppActions.Login)
+    @Action(AuthActions.Login)
     async login(context: StateContext<IAppStateModel>) {
         const user = await this._authService.login();
-        return context.dispatch(new AppActions.LoggedIn(user));
+        return context.dispatch(new AuthActions.LoggedIn(user));
     }
 
-    @Action(AppActions.LoggedIn)
-    async loggedIn(context: StateContext<IAppStateModel>, action: AppActions.LoggedIn) {
+    @Action(AuthActions.LoggedIn)
+    async loggedIn(context: StateContext<IAppStateModel>, action: AuthActions.LoggedIn) {
         context.patchState({user: action.user});
         this._zone.run(() => {
             console.log('loginPage: authNavigate');
             this._router.navigate(['/content']);
         });
     }
+
+   /* @Action(AuthActions.TakeScreenshot)
+    takeScreenshotSuccessful(context: StateContext<IAppStateModel>, action: AuthActions.TakeScreenshot) {
+    context.patchState({screenshot: action.screenshot});
+
+    }*/
 
 }

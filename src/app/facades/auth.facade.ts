@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngxs/store';
-import {AppActions} from '../actions/app.actions';
+import {AuthActions} from '../actions/auth.actions';
 import {Observable} from 'rxjs';
 import {AppState} from '../app.state';
 
@@ -12,7 +12,7 @@ export class AuthFacade {
     }
 
     login() {
-        return this._store.dispatch(new AppActions.Login());
+        return this._store.dispatch(new AuthActions.Login());
     }
 
     get isLoggedIn(): Promise<boolean> {

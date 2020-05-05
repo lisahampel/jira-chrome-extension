@@ -1,9 +1,9 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
-import LoggedIn = AppActions.LoggedIn;
+import LoggedIn = AuthActions.LoggedIn;
 import {Store} from '@ngxs/store';
-import {AppActions} from '../../../actions/app.actions';
+import {AuthActions} from '../../../actions/auth.actions';
 import {AuthFacade} from '../../../facades/auth.facade';
 
 @Component({
