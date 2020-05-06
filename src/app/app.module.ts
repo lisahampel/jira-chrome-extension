@@ -5,7 +5,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatFormFieldModule, MatInputModule} from '@angular/material';
-import {ExtensionComponent} from './components/extension/extension.component';
+import {IssueComponent} from './components/issue/issue.component';
 import {QuillModule} from 'ngx-quill';
 import {CommonModule} from '@angular/common';
 import {AuthModule} from './pages/auth/auth.module';
@@ -14,14 +14,15 @@ import {AngularEditorModule} from '@kolkov/angular-editor';
 import {NgxsModule} from '@ngxs/store';
 import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
-import {AuthState} from './auth.state';
+import {AuthState} from './redux/auth/auth.state';
 import {HttpClientModule} from '@angular/common/http';
+import {IssueState} from './redux/issue/issue.state';
 
 
 @NgModule({
     declarations: [
         AppComponent,
-        ExtensionComponent
+        IssueComponent
     ],
     imports: [
         BrowserModule,
@@ -60,7 +61,7 @@ import {HttpClientModule} from '@angular/common/http';
             }
         }),*/
         AuthModule,
-        NgxsModule.forRoot([AuthState], {
+        NgxsModule.forRoot([AuthState, IssueState], {
             developmentMode: true
         }),
         NgxsReduxDevtoolsPluginModule.forRoot(),

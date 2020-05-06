@@ -1,4 +1,4 @@
-import {AuthActions} from './auth.actions';
+import {AuthActions} from '../auth/auth.actions';
 
 export enum IssueActionTypes {
     TAKE_SCREENSHOT = '[Issue] Take Screenshot'
@@ -9,7 +9,7 @@ export namespace IssueActions {
 
     export class TakeScreenshot {
         static readonly type = IssueActionTypes.TAKE_SCREENSHOT;
-        constructor(readonly screenshot: any) {
+        constructor() {
         }
     }
 

@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
   }
 })
 export class AppComponent {
-  title = 'jira-extension';
+  title = 'jira-issue';
 
   constructor(router: Router) {
       chrome.identity.onSignInChanged.addListener( (account, signedIn) => {

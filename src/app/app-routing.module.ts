@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginPage} from './pages/auth/login/login.page';
-import {ExtensionComponent} from './components/extension/extension.component';
+import {IssueComponent} from './components/issue/issue.component';
 import {AuthGuard} from './guards/auth.guard';
 import {CallbackComponent} from './pages/auth/callback/callback.component';
 
@@ -17,7 +17,7 @@ const routes: Routes = [
     },
     {
         path: 'content',
-        component: ExtensionComponent,
+        component: IssueComponent,
         canActivate: [AuthGuard]
     },
     {
