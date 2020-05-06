@@ -3,8 +3,8 @@ import {environment} from '../../../../environments/environment';
 import {Router} from '@angular/router';
 import LoggedIn = AuthActions.LoggedIn;
 import {Store} from '@ngxs/store';
-import {AuthActions} from '../../../actions/auth.actions';
-import {AuthFacade} from '../../../facades/auth.facade';
+import {AuthActions} from '../../../redux/auth/auth.actions';
+import {AuthFacade} from '../../../redux/auth/auth.facade';
 
 @Component({
     selector: 'app-login',

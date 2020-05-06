@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngxs/store';
-import {AuthActions} from '../actions/auth.actions';
+import {AuthActions} from './auth.actions';
 import {Observable} from 'rxjs';
-import {AuthState} from '../auth.state';
+import {AuthState} from './auth.state';
 
 @Injectable({
     providedIn: 'root'
