@@ -33,9 +33,10 @@ export class AuthState {
 
     @Action(AuthActions.Login)
     async login(context: StateContext<IAuthStateModel>) {
-        const user = await this._authService.login();
-        this._location.go(user as string);
-        // return context.dispatch(new AuthActions.LoggedIn(user));
+        const accessToken = await this._authService.login();
+        const user = await this._authService.getActiveUser(accessToken);
+        console.log('@Action login', user);
+        return context.dispatch(new AuthActions.LoggedIn(user));
     }
 
     @Action(AuthActions.LoggedIn)

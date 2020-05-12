@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('jira-extension app is running!');
+    expect(page.getTitleText()).toEqual('jira-issue app is running!');
   });
 
   afterEach(async () => {

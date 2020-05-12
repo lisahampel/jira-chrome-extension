@@ -8,8 +8,8 @@ export const environment = {
     atlassian: {
         clientId: 'QLT8Ng5om30Gb6UBPTdL3sdxSDK5gWrx',
         clientSecret: 'DrS7wzuLyt0jWz8NHGZ0UecA9lqwG7vvmGO7TfzoIriUuwVZ7J4iOv78dXerBgS_',
-        redirectUri: 'https://fmankodjpohicmamdpjdcljoeiiddhmj.chromiumapp.org/callback',
-        scopes: ['notifications', 'gist', 'write:jira-work', 'read:jira-user'],
+        redirectUri: 'https://nmeoeehnncogeoalaabeoildfopkhgll.chromiumapp.org/callback',
+        scopes: ['read:servicedesk-request', 'write:servicedesk-request', 'read:me'],
         apiToken: 'VQoL1nPsBGbVviwCF5gxA27C'
     }
 };

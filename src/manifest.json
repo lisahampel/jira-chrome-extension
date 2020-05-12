@@ -9,6 +9,9 @@
         ],
         "persistent": false
     },
+    /*"oauth2": {
+        "google_aut": "https://nmeoeehnncogeoalaabeoildfopkhgll.chromiumapp.org/callback?code=f8GfkMDhAPUKHo8a&state=105658776426399641652"
+    },*/
     "browser_action": {
         "default_icon": "assets/zebra48.png",
         "default_title": "Jira screenshot!",
@@ -20,7 +23,10 @@
         "sessions",
         "windows",
         "tabs",
-        "activeTab"
+        "activeTab",
+        "http://*/",
+        "https://*/",
+        "notifications"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "web_accessible_resources": [
