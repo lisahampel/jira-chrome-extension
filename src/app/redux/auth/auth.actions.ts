@@ -2,6 +2,7 @@ export enum AuthActionTypes {
     USER_INFO = '[Auth] User Get Information',
     LOGIN = '[Auth] Login',
     LOGGED_IN = '[Auth] User Logged In',
+    LOGOUT = '[Auth] Logout',
     LOGGED_OUT = '[Auth] User Logged Out'
 }
 
@@ -26,6 +27,12 @@ export namespace AuthActions {
         }
     }
 
+    export class Logout {
+        static readonly type = AuthActionTypes.LOGOUT;
+        constructor() {
+        }
+    }
+
     export class LoggedOut {
         static readonly type = AuthActionTypes.LOGGED_OUT;
         constructor() {
@@ -36,4 +43,5 @@ export namespace AuthActions {
 
 export type AuthenticationAction = AuthActions.Login
     | AuthActions.LoggedIn
+    | AuthActions.Logout
     | AuthActions.LoggedOut;

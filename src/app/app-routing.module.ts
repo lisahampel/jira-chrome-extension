@@ -11,10 +11,10 @@ const routes: Routes = [
         path: 'login',
         component: LoginPage
     },
-    {
+/*    {
         path: 'callback',
         component: CallbackComponent
-    },
+    },*/
     {
         path: 'content',
         component: IssueComponent,

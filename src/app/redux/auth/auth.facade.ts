@@ -15,6 +15,10 @@ export class AuthFacade {
         return this._store.dispatch(new AuthActions.Login());
     }
 
+    logout() {
+        return this._store.dispatch(new AuthActions.Logout());
+    }
+
     get isLoggedIn(): Promise<boolean> {
         return this._store.selectOnce(AuthState.isLoggedIn).toPromise();
     }

@@ -9,7 +9,7 @@ export const environment = {
         clientId: 'QLT8Ng5om30Gb6UBPTdL3sdxSDK5gWrx',
         clientSecret: 'DrS7wzuLyt0jWz8NHGZ0UecA9lqwG7vvmGO7TfzoIriUuwVZ7J4iOv78dXerBgS_',
         redirectUri: 'https://nmeoeehnncogeoalaabeoildfopkhgll.chromiumapp.org/callback',
-        scopes: ['read:servicedesk-request', 'write:servicedesk-request', 'read:me'],
+        scopes: ['read:servicedesk-request', 'write:servicedesk-request', 'read:me', 'read:jira-work'],
         apiToken: 'VQoL1nPsBGbVviwCF5gxA27C'
     }
 };

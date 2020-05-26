@@ -5,6 +5,9 @@ import LoggedIn = AuthActions.LoggedIn;
 import {Store} from '@ngxs/store';
 import {AuthActions} from '../../../redux/auth/auth.actions';
 import {AuthFacade} from '../../../redux/auth/auth.facade';
+import { BackgroundService } from '../../../services/background.service';
+
+
 
 @Component({
     selector: 'app-login',
@@ -15,7 +18,11 @@ export class LoginPage implements OnInit {
 
     static ATLASSIAN_AUTH_URL = 'https://auth.atlassian.com/authorize?audience=api.atlassian.com&client_id=QLT8Ng5om30Gb6UBPTdL3sdxSDK5gWrx&scope=read%3Aservicedesk-request%20write%3Aservicedesk-request&redirect_uri=https%3A%2F%2Fnmeoeehnncogeoalaabeoildfopkhgll.chromiumapp.org%2Fcallback&state=${YOUR_USER_BOUND_VALUE}&response_type=code&prompt=consent';
 
-    constructor(private _router: Router, private _zone: NgZone, private _store: Store, private _loginFacade: AuthFacade) {
+    constructor(private readonly _background: BackgroundService,
+                private _router: Router,
+                private _zone: NgZone,
+                private _store: Store,
+                private _authFacade: AuthFacade) {
     }
 
     get atlassianAuthUrlOld() {
@@ -39,6 +46,7 @@ export class LoginPage implements OnInit {
 
 
     ngOnInit() {
+
     }
 
    /* getProfileUserInfo(): Promise<any> {
@@ -62,7 +70,8 @@ export class LoginPage implements OnInit {
     }*/
 
     async login() {
-        await this._loginFacade.login();
+        await this._authFacade.login();
         console.log('auth successful', arguments);
     }
+
 }

@@ -18,10 +18,10 @@ export class AppComponent {
       chrome.identity.onSignInChanged.addListener( (account, signedIn) => {
           if (signedIn) {
               console.log('AccountInfo - logged in: ', account, 'signedIn: ', signedIn);
-              router.navigateByUrl('/content');
+              // router.navigateByUrl('/content');
           } else {
               console.log('AccountInfo: ', account, 'signedIn: ', signedIn);
-              router.navigateByUrl('/login');
+              // router.navigateByUrl('/login');
           }
       });
   }

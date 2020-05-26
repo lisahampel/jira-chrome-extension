@@ -35,6 +35,30 @@ export class AuthService {
         });
     }
 
+    async loginNew() {
+        // console.log('AuthService.login', arguments);
+        const atlassianAuthUrl = await this._getAtlassianAuthUrl().catch(e => {
+            console.error('authservice.Login', e);
+            return null;
+        });
+        console.log('authservice.Login atlassianAuthUrl', atlassianAuthUrl);
+        return new Promise((resolve) => {
+            chrome.identity.getAuthToken({
+                interactive: true
+            }, resolve);
+        }).then((redirectUrl: string) => {
+            console.log('authservice.Login redirectUrl', redirectUrl);
+            const url = new URL(redirectUrl);
+            return this.getAccessToken(url.searchParams.get('code'));
+        }).then((accessToken: string) => {
+            console.log('authservice.Login accessToken', accessToken);
+            return accessToken;
+        }).catch(e => {
+            console.error('authservice.Login2', e);
+            return null;
+        });
+    }
+
     private async _getAtlassianAuthUrl(): Promise<string> {
         // console.log('AuthService._getAtlassianAuthUrl', arguments);
         // const userInfo = await this._getProfileUserInfo();
@@ -95,6 +119,20 @@ export class AuthService {
             }).toPromise();
     }
 
-    getIssue
+    getImacsIssue(accessToken: string, jql: string) {
+        return this._httpClient.get(`https://bynary.atlassian.net/rest/api/3/search?jql=${encodeURIComponent(jql)}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
+                }
+            }).toPromise();
+    }
+
+    async logout(accessToken) {
+        chrome.identity.removeCachedAuthToken(accessToken, () => {
+            console.log('logged out');
+        });
+    }
 
 }
