@@ -1,29 +1,51 @@
+function startWebAuthFlow(payload, callback) {
+    console.log('startWebAuthFlow', payload);
 
+    const identity = chrome.identity;
+    const launchWebAuthFlow = identity.launchWebAuthFlow;
 
-function startWebAuthFlow(payload) {
-    chrome.identity.launchWebAuthFlow(payload, resolve)
+    launchWebAuthFlow(payload, (result) => {
+        console.log('startWebAuthFlow =>', result || chrome.runtime.lastError);
+        callback(result);
+    });
 }
 
-chrome.runtime.onConnect.addListener(function(port) {
-    console.log("Background Connected .....", port.name);
-    port.onMessage.addListener(function(action) {
-        switch(action.type) {
-            case 'startWebAuthFlow':
-                startWebAuthFlow();
-        }
-        console.log("Background  message recieved2 " + msg);
-        port.postMessage("Hi Popup.js");
-    });
+console.log('chrome.identity', chrome.identity);
+console.log('chrome.identity.launchWebAuthFlow', chrome.identity.launchWebAuthFlow);
+
+chrome.runtime.onMessage.addListener((action, sender, sendResponse) => {
+    console.log('Background  onMessage received2 ', action, sender, sendResponse);
+    switch (action.type) {
+        case 'startWebAuthFlow':
+            startWebAuthFlow(action.payload, (result) => sendResponse(result));
+            break;
+    }
+
+    return true;
 });
+
+/*chrome.runtime.onConnect.addListener((port) => {
+    console.log('Background Connected .....', port.name);
+    // @ts-ignore
+    port.onMessage.addListener((action, sender, response) => {
+        console.log('Background  onConnect message received2 ', action);
+        switch (action.type) {
+            case 'startWebAuthFlow':
+                startWebAuthFlow(action.payload, (result) => response(result));
+                break;
+        }
+        port.postMessage('Hi Popup.js');
+    });
+});*/
 
 // chrome.browserAction.onClicked.addListener(() => {
 
 
-   /* chrome.webNavigation.onCompleted.addListener(() => {
-        chrome.tabs.query({active: true, currentWindow: true}, ([{id}]) => {
-            chrome.pageAction.show(id);
-        });
-    });*/
+/* chrome.webNavigation.onCompleted.addListener(() => {
+     chrome.tabs.query({active: true, currentWindow: true}, ([{id}]) => {
+         chrome.pageAction.show(id);
+     });
+ });*/
 // });
 
 /*chrome.browserAction.onClicked.addListener(function() {

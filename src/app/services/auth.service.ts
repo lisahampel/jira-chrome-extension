@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import { BackgroundService } from './background.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    constructor(private readonly _httpClient: HttpClient) {
+    constructor(private readonly _backgroundService: BackgroundService,
+                private readonly _httpClient: HttpClient) {
     }
 
     async login() {
@@ -17,11 +19,15 @@ export class AuthService {
             return null;
         });
         console.log('authservice.Login atlassianAuthUrl', atlassianAuthUrl);
-        return new Promise((resolve) => {
+        /*return new Promise((resolve) => {
             chrome.identity.launchWebAuthFlow({
                 url: atlassianAuthUrl,
                 interactive: true
             }, resolve);
+        })*/
+        return this._backgroundService.startWebAuthFlow({
+            url: atlassianAuthUrl,
+            interactive: true
         }).then((redirectUrl: string) => {
             console.log('authservice.Login redirectUrl', redirectUrl);
             const url = new URL(redirectUrl);
