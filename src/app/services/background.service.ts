@@ -56,8 +56,9 @@ export class BackgroundService {
         chrome.runtime.sendMessage(message, (result) => {
             console.log('BackgroundService._sendMessage result', result);
 
-            if (!result)
-                console.error("This was a fiasco :", chrome.runtime.lastError.message);
+            if (!result) {
+                console.error('This was a fiasco :', chrome.runtime.lastError.message);
+            }
             callback(result);
         });
     }

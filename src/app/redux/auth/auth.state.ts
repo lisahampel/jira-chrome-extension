@@ -43,10 +43,10 @@ export class AuthState {
     @Action(AuthActions.LoggedIn)
     async loggedIn(context: StateContext<IAuthStateModel>, action: AuthActions.LoggedIn) {
         context.patchState({user: action.user});
-    /*    this._zone.run(() => {
+        this._zone.run(() => {
             console.log('loginPage: authNavigate');
             this._router.navigate(['/content']);
-        });*/
+        });
     }
 
     @Action(AuthActions.Logout)
