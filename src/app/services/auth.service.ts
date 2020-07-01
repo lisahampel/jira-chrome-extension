@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {environment} from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { BackgroundService } from './background.service';
 
 @Injectable({
@@ -10,6 +10,17 @@ export class AuthService {
 
     constructor(private readonly _backgroundService: BackgroundService,
                 private readonly _httpClient: HttpClient) {
+    }
+
+    async silentLogin() {
+        const accessToken = localStorage.getItem('accessToken');
+
+        if (accessToken == null) {
+            return null;
+        }
+
+        // TODO  check if not expired
+        return accessToken;
     }
 
     async login() {
@@ -32,9 +43,10 @@ export class AuthService {
             console.log('authservice.Login redirectUrl', redirectUrl);
             const url = new URL(redirectUrl);
             return this.getAccessToken(url.searchParams.get('code'));
-        }).then((accessToken: string) => {
-            console.log('authservice.Login accessToken', accessToken);
-            return accessToken;
+        }).then((accessToken2: string) => {
+            console.log('authservice.Login accessToken', accessToken2);
+            localStorage.setItem('accessToken', accessToken2);
+            return accessToken2;
         }).catch(e => {
             console.error('authservice.Login2', e);
             return null;
@@ -58,6 +70,7 @@ export class AuthService {
             return this.getAccessToken(url.searchParams.get('code'));
         }).then((accessToken: string) => {
             console.log('authservice.Login accessToken', accessToken);
+
             return accessToken;
         }).catch(e => {
             console.error('authservice.Login2', e);
@@ -115,7 +128,11 @@ export class AuthService {
         }).toPromise().then((result: any) => result.access_token);
     }
 
-    getActiveUser(accessToken: string) {
+    async getActiveUser(accessToken?: string) {
+        if (!accessToken) {
+            accessToken = await localStorage.getItem('accessToken');
+        }
+
         return this._httpClient.get('https://api.atlassian.com/me',
             {
                 headers: {
@@ -136,9 +153,16 @@ export class AuthService {
     }
 
     async logout(accessToken) {
-        chrome.identity.removeCachedAuthToken(accessToken, () => {
+        chrome.identity.launchWebAuthFlow({
+           url: 'https://api.atlassian.com/logout'
+        }, () => {
+            localStorage.removeItem('accessToken');
             console.log('logged out');
         });
+
+    /*    chrome.identity.removeCachedAuthToken(accessToken, () => {
+            console.log('logged out');
+        });*/
     }
 
 }

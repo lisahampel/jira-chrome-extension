@@ -23,4 +23,8 @@ export class AuthFacade {
         return this._store.selectOnce(AuthState.isLoggedIn).toPromise();
     }
 
+    silentLogin() {
+        return this._store.dispatch(new AuthActions.SilentLogin());
+    }
+
 }

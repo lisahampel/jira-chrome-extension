@@ -3,7 +3,8 @@ export enum AuthActionTypes {
     LOGIN = '[Auth] Login',
     LOGGED_IN = '[Auth] User Logged In',
     LOGOUT = '[Auth] Logout',
-    LOGGED_OUT = '[Auth] User Logged Out'
+    LOGGED_OUT = '[Auth] User Logged Out',
+    SILENT_LOGIN = '[Auth] Silent Login'
 }
 
 // tslint:disable-next-line:no-namespace
@@ -17,6 +18,12 @@ export namespace AuthActions {
 
     export class Login {
         static readonly type = AuthActionTypes.LOGIN;
+        constructor() {
+        }
+    }
+
+    export class SilentLogin {
+        static readonly type = AuthActionTypes.SILENT_LOGIN;
         constructor() {
         }
     }
@@ -44,4 +51,5 @@ export namespace AuthActions {
 export type AuthenticationAction = AuthActions.Login
     | AuthActions.LoggedIn
     | AuthActions.Logout
-    | AuthActions.LoggedOut;
+    | AuthActions.LoggedOut
+    | AuthActions.SilentLogin;
