@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 enum BackgroundActionType {
-    START_WEB_AUTH_FLOW = 'startWebAuthFlow'
+    START_WEB_AUTH_FLOW = 'startWebAuthFlow',
+    GET_BROWSER_INFO = 'getBrowserInfo'
 }
 
 enum BackgroundResponseType {
@@ -17,6 +18,7 @@ interface WebAuthFlowResponse {
     type: BackgroundResponseType.WEB_AUTH_FLOW;
     payload: { redirectUrl: string };
 }
+
 
 
 @Injectable({
@@ -39,27 +41,31 @@ export class BackgroundService {
     }
 
     startWebAuthFlow(options: chrome.identity.WebAuthFlowOptions): Promise<string> {
-        return new Promise((resolve) => {
-            const message = {
-                type: BackgroundActionType.START_WEB_AUTH_FLOW,
-                payload: options
-            };
-
-            this._sendMessage(message, (result) => {
-                console.log('BackgroundService.startWebAuthFlow result', result);
-                resolve(result);
-            });
+        return this._sendMessageAsync({
+            type: BackgroundActionType.START_WEB_AUTH_FLOW,
+            payload: options
         });
     }
 
-    private _sendMessage(message: any, callback: (result: any) => any) {
+    private _sendMessage<MESSAGE, RESULT>(message: MESSAGE, onResult: (result: RESULT) => void, onError?: (error: any) => void) {
         chrome.runtime.sendMessage(message, (result) => {
             console.log('BackgroundService._sendMessage result', result);
 
             if (!result) {
-                console.error('This was a fiasco :', chrome.runtime.lastError.message);
+                if (onError != null) {
+                    onError(chrome.runtime.lastError);
+                }
+
+                return;
             }
-            callback(result);
+
+            onResult(result);
+        });
+    }
+
+    private _sendMessageAsync<MESSAGE, RESULT>(message: MESSAGE): Promise<RESULT> {
+        return new Promise<RESULT>((resolve, reject) => {
+            this._sendMessage<MESSAGE, RESULT>(message, resolve, reject);
         });
     }
 

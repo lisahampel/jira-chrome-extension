@@ -10,14 +10,18 @@ import {AuthFacade} from '../../redux/auth/auth.facade';
 })
 export class IssueComponent implements OnInit {
 
-    constructor(private extensionService: IssueService, private readonly _issueFacade: IssueFacade, private readonly _authFacade: AuthFacade) {
+    constructor(private readonly _issueService: IssueService, private readonly _issueFacade: IssueFacade, private readonly _authFacade: AuthFacade) {
+
     }
 
     ngOnInit() {
+
     }
 
-    sendBug() {
-        this.extensionService.sendBug();
+    async sendBug() {
+        this._issueService.sendBug();
+        const result = await this._issueService.getBrowserInfo(); // navigator.userAgent;
+        console.log(result);
     }
 
     onLogoutButtonClicked() {

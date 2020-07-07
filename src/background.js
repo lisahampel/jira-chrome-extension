@@ -10,6 +10,15 @@ function startWebAuthFlow(payload, callback) {
     });
 }
 
+async function getBrowserInfo(callback) {
+    const currentTab = await new Promise((resolve) => chrome.tabs.getCurrent(resolve));
+    callback({
+        userAgent: navigator.userAgent,
+        windowHeight: currentTab ? currentTab.height : void 0,
+        windowWidth: currentTab ? currentTab.width : void 0
+    });
+}
+
 console.log('chrome.identity', chrome.identity);
 console.log('chrome.identity.launchWebAuthFlow', chrome.identity.launchWebAuthFlow);
 
@@ -18,6 +27,9 @@ chrome.runtime.onMessage.addListener((action, sender, sendResponse) => {
     switch (action.type) {
         case 'startWebAuthFlow':
             startWebAuthFlow(action.payload, (result) => sendResponse(result));
+            break;
+        case 'getBrowserInfo':
+            getBrowserInfo((result) => sendResponse(result));
             break;
     }
 
