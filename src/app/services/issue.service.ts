@@ -1,21 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { IBrowserInfo } from '../models/browser-information.model.i';
 import { BackgroundService } from './background.service';
 import platform from 'platform';
-
-interface IBrowserInfo {
-    userAgent: string;
-    os: string;
-    browser: string;
-    ipAddress: string;
-    jsEnabled: boolean;
-    cookiesEnabled: boolean;
-    websocketSupported: boolean;
-    webGlSupported: boolean;
-    locale: string;
-    windowHeight: number;
-    windowWidth: number;
-}
 
 @Injectable({
     providedIn: 'root'
@@ -60,7 +47,26 @@ export class IssueService {
 
         browserInfo.cookiesEnabled = navigator.cookieEnabled;
 
-        
+        const support = 'MozWebSocket' in window ? 'MozWebSocket' : ('WebSocket' in window ? 'WebSocket' : null);
+        if (support == null) {
+            browserInfo.websocketSupported = false;
+        } else {
+            browserInfo.websocketSupported = true;
+        }
+
+        const gl = document.createElement('canvas').getContext('webgl2');
+        if (!gl) {
+            browserInfo.webGlSupported = false;
+            console.log('your browser has no WebGL2 support at all');
+        } else {
+            browserInfo.webGlSupported = true;
+            console.log('webgl2 works!');
+        }
+
+        // check, ob noscript da ist (jsEnabled)
+        const elementExists = document.querySelector('noscript');
+        console.log(elementExists);
+
         return browserInfo;
     }
 }
